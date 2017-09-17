@@ -25,11 +25,11 @@
         }
 
         .badge-get {
-            background-color: #1976d2 !important;
+            background-color: #2196f3 !important;
         }
 
         .badge-post {
-            background-color: #388e3c !important;
+            background-color: #4caf50 !important;
         }
 
         .badge-delete {
@@ -37,11 +37,11 @@
         }
 
         .badge-put {
-            background-color: #f57c00 !important;
+            background-color: #ff9800 !important;
         }
 
         .badge-patch {
-            background-color: #7b1fa2 !important;
+            background-color: #673ab7 !important;
         }
 
         .badge-head {
@@ -108,6 +108,12 @@
             padding: 8px;
             margin: 0px;
         }
+
+        .modal {
+            height: 80% !important;
+            max-height: 80% !important;
+            width: 60% !important;
+        }
     </style>
 
 </head>
@@ -159,7 +165,15 @@
 
     <script>
         $(document).ready(function () {
-            $('.modal').modal();
+            $('.modal').modal({
+                ready: function()  {
+                    $('ul.tabs').tabs();
+                }
+            });
+        });
+
+        $(document).ready(function(){
+            $('ul.tabs').tabs();
         });
 
     </script>

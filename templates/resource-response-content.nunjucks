@@ -23,6 +23,7 @@
                 {% endfor %}
                 </ul>
             </li>
+        </ul>
         {% endif %}
 
         {% if response.body.length %}

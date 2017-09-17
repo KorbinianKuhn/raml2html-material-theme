@@ -8,6 +8,12 @@ A material design theme for raml2html based on the [default-theme](https://githu
 $ npm install -g raml2html-material-theme
 ```
 
+Test the example raml:
+
+```
+$ npm test
+```
+
 ## Usage
 
 In javascript:
