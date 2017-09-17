@@ -1,0 +1,156 @@
+<div id="{{ resource.uniqueId }}_{{ method.method }}_request">
+
+    {% if resource.allUriParameters.length %}
+        <ul class="collection with-header">
+            <li class="collection-header"><h5>URI Parameters</h5></li>
+            <li class="collection-item">
+                <ul class="collapsible" data-collapsible="accordion">
+                {% for item in resource.allUriParameters %}
+                    {% include "./item.nunjucks" %}
+                {% endfor %}
+                </ul>
+            </li>
+        </ul>
+    {% endif %}
+
+    {% if method.annotations.length %}
+        <ul class="collection with-header">
+            <li class="collection-header"><h5>Annotations</h5></li>
+            <li class="collection-item">
+                <ul class="collapsible" data-collapsible="accordion">
+                {% for item in method.annotations %}
+                    {% include "./item.nunjucks" %}
+                {% endfor %}
+                </ul>
+            </li>
+        </ul>
+    {% endif %}
+
+    {% if method.headers.length %}
+        <ul class="collection with-header">
+            <li class="collection-header"><h5>Headers</h5></li>
+            <li class="collection-item">
+                <ul class="collapsible" data-collapsible="accordion">
+                {% for item in method.headers %}
+                    {% include "./item.nunjucks" %}
+                {% endfor %}
+                </ul>
+            </li>
+        </ul>
+    {% endif %}
+
+    {% if method.queryString and method.queryString.properties.length %}
+        <ul class="collection with-header">
+            <li class="collection-header"><h5>Query String</h5></li>
+            <li class="collection-item">
+                <ul class="collapsible" data-collapsible="accordion">
+                {% for item in method.queryString.properties %}
+                    {% include "./item.nunjucks" %}
+                {% endfor %}
+                </ul>
+            </li>
+        </ul>
+    {% endif %}
+
+    {% if method.queryParameters.length %}
+        <ul class="collection with-header">
+            <li class="collection-header"><h5>Query Parameters</h5></li>
+            <li class="collection-item">
+                <ul class="collapsible" data-collapsible="accordion">
+                {% for item in method.queryParameters %}
+                    {% include "./item.nunjucks" %}
+                {% endfor %}
+                </ul>
+            </li>
+        </ul>
+    {% endif %}
+
+    {% if method.body %}
+        <ul class="collection with-header">
+        <li class="collection-header"><h5>Body</h5></li>
+
+        {% for b in method.body %}
+        <li class="collection-item">
+        <p><strong>Media type</strong>: {{ b.key }}</p>
+
+        {% if b.type %}
+            {% if isStandardType(b.type) %}
+            {% if b.type === 'array' and b.items %}
+                <p><strong>Type</strong>: array of {% if isStandardType(b.items) %}{{ b.items }}{% else %}{{ b.items.displayName }}{% endif %}</p>
+            {% elif b.type === 'union' and b.anyOf.length %}
+                <p><strong>Possible types</strong>:
+                <ul>
+                    {% for super in b.anyOf %}
+                    <li>
+                        <p><strong>{{ super.displayName }}</strong></p>
+                        <div class="items">
+                        <ul>
+                            {% for item in super.properties %}
+                            {% include "./item.nunjucks" %}
+                            {% endfor %}
+                        </ul>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                </p>
+            {% else %}
+                <p><strong>Type</strong>: {{ b.type }}</p>
+            {% endif %}
+            {% else %}
+            <p><strong>Type</strong>:</p>
+            <pre><code>{{ b.type | escape }}</code></pre>
+            {% endif %}
+        {% endif %}
+
+        {% if b.content %}
+            <p><strong>Content</strong>:</p>
+            <pre><code>{{ b.content | escape }}</code></pre>
+        {% endif %}
+
+        {% if b.items and b.items.properties %}
+            {% if isStandardType(b.items) %}
+            <p><strong>Items</strong>: {{ b.items }}</p>
+            {% endif %}
+
+            {% if not isStandardType(b.items) %}
+            <p><strong>Items</strong>: {{ b.items.displayName }}</p>
+
+            {% if b.items.properties or b.items.examples.length %}
+                <div class="items">
+                {% if b.items.properties %}
+                    <ul>
+                    {% for item in b.items.properties %}
+                        {% include "./item.nunjucks" %}
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {# Request - Array item examples #}
+                {% set parent = b.items %}
+                {% include "./examples.nunjucks" %}
+                </div>
+            {% endif %}
+            {% endif %}
+        {% endif %}
+
+        {% if b.properties.length %}
+            <strong>Properties</strong>
+            <ul>
+            {% for item in b.properties %}
+                {% include "./item.nunjucks" %}
+            {% endfor %}
+            </ul>
+        {% endif %}
+
+        {# Request - Body examples #}
+        {% set parent = b %}
+        {% include "./examples.nunjucks" %}
+
+        </li>
+        {% endfor %}
+
+        </ul>
+    {% endif %}
+
+</div>

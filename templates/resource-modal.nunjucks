@@ -1,0 +1,97 @@
+<div id="{{ resource.uniqueId }}_{{ method.method }}" class="modal modal-fixed-footer">
+    <div class="modal-content">
+
+      <div class="section">
+        <span class="new badge badge-{{ method.method }}" data-badge-caption="{{ method.method }}">{% if method.securedBy.length %} <i title="Authentication required" class="material-icons">lock</i>{% endif %}</span>
+        <strong><span class="parent">{{ resource.parentUrl }}</span>{{ resource.relativeUri }}</strong>
+        {% if method.description %}
+        <p>
+            {% markdown %}
+            {{ method.description}}
+            {% endmarkdown %}
+        </p>
+        {% endif %}
+      </div>
+
+      {% if method.securedBy.length %}
+        <div class="section">
+          <ul class="collection">
+          {% for securedBy in method.securedBy %}
+              {% if securedBy %}
+                {% set securityScheme = securitySchemes[securedBy.schemeName] %}
+
+                <li class="collection-item grey lighten-3">
+                  <div>
+                    Secured by <b>{{securityScheme.displayName}}</b>
+                    <a href="#!" class="secondary-content"><i title="Authentication required" class="material-icons black-text">lock</i></a>
+                    <p>
+                    {% if securityScheme.description %}
+                      {% markdown %}
+                      {{ securityScheme.description }}
+                      {% endmarkdown %}
+                    {% endif %}
+                    </p>
+                    {% if securedBy.scopes %}
+                    with scopes:
+                    <ul>
+                        {% for scope in securedBy.scopes %}
+                        <li>{{scope}}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                  </div>
+                </li>
+              {% endif %}
+          {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        <div class="section">
+            <ul class="tabs">
+                {% if method.allUriParameters.length or method.queryString or method.queryParameters or method.headers or method.body %}
+                  <li class="tab active">
+                    <a href="#{{ resource.uniqueId }}_{{ method.method }}_request">Request</a>
+                  </li>
+                {% endif %}
+
+                {% if method.responses %}
+                  <li class="tab {%
+                    if not method.allUriParameters.length and not method.queryParameters
+                    and not method.queryString
+                    and not method.headers and not method.body
+                    %} active{%
+                    endif
+                    %}">
+                    <a href="#{{ resource.uniqueId }}_{{ method.method }}_response">Response</a>
+                  </li>
+                {% endif %}
+
+                {% if method.securedBy.length %}
+                  <li class="tab">
+                    <a href="#{{ resource.uniqueId }}_{{ method.method }}_securedby">Security</a>
+                  </li>
+                {% endif %}
+              </ul>
+
+              {% if method.allUriParameters.length or method.queryString or method.queryParameters or method.headers or method.body %}
+              {% include "./resource-request-content.nunjucks" %}
+              {% endif %}
+
+              {% if method.responses %}
+              {% include "./resource-response-content.nunjucks" %}
+              {% endif %}
+
+              {% if method.securedBy.length %}
+              {% include "./resource-securedby-content.nunjucks" %}
+              {% endif %}
+
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect btn-flat ">Close</a>
+    </div>
+
+  </div>

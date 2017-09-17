@@ -1,0 +1,28 @@
+{% if parent.examples.length %}
+    <ul class="collapsible" data-collapsible="accordion">
+        <li>
+            <div class="collapsible-header">
+                <strong>{{ 'Example' if parent.examples.length == 1 else 'Examples' }}</strong>
+            </div>
+            <div class="collapsible-body">
+                {% for example in parent.examples %}
+                    {% if example.displayName or example.description %}
+                        <p>
+                        {% if example.displayName %}
+                            <strong>{{ example.displayName }}</strong>:<br />
+                        {% endif %}
+                        {% if example.description %}
+                            {{ example.description }}
+                        {% endif %}
+                        </p>
+                    {% endif %}
+                    <ul class="collection">
+                        <li class="collection-item grey lighten-4">
+                            <pre><code>{{ example.value | escape }}</code></pre>
+                        </li>
+                    </ul>
+                {% endfor %}
+            </div>
+        </li>
+    </ul>
+{% endif %}

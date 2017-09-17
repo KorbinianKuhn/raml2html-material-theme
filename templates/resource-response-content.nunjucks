@@ -1,0 +1,110 @@
+<div id="{{ resource.uniqueId }}_{{ method.method }}_response">
+    <ul class="tabs response">
+    {% for response in method.responses %}
+        <li class="tab"><a href="#{{ resource.uniqueId }}_{{ method.method }}_response_{{ response.code }}">{{ response.code }}</a></li>
+    {% endfor %}
+    </ul>
+
+    {% for response in method.responses %}
+    <div id="{{ resource.uniqueId }}_{{ method.method }}_response_{{ response.code }}">
+        <p>
+        {% markdown %}
+        {{ response.description }}
+        {% endmarkdown %}
+        </p>
+
+        {% if response.headers.length %}
+        <ul class="collection with-header">
+            <li class="collection-header"><h5>Headers</h5></li>
+            {% for item in response.headers %}
+            {% include "./item.nunjucks" %}
+            {% endfor %}
+        {% endif %}
+
+        {% if response.body.length %}
+        <ul class="collection with-header">
+            <li class="collection-header"><h5>Body</h5></li>
+        {% for b in response.body %}
+            <li class="collection-item">
+            <p><strong>Media type</strong>: {{ b.key }}</p>
+
+            {% if b.type %}
+            {% if isStandardType(b.type) %}
+                {% if b.type === 'array' and b.items %}
+                <p><strong>Type</strong>: array of {% if isStandardType(b.items) %}{{ b.items }}{% else %}{{ b.items.displayName }}{% endif %}</p>
+                {% elif b.type === 'union' and b.anyOf.length %}
+                <p><strong>Possible types</strong>:
+                    <ul>
+                    {% for super in b.anyOf %}
+                        <li>
+                        <p><strong>{{ super.displayName }}</strong></p>
+                        <div class="items">
+                            <ul>
+                            {% for item in super.properties %}
+                                {% include "./item.nunjucks" %}
+                            {% endfor %}
+                            </ul>
+                        </div>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </p>
+                {% else %}
+                <p><strong>Type</strong>: {{ b.type }}</p>
+                {% endif %}
+            {% else %}
+                <p><strong>Type</strong>:</p>
+                <pre><code>{{ b.type | escape }}</code></pre>
+            {% endif %}
+            {% endif %}
+
+            {% if b.content %}
+            <p><strong>Content</strong>:</p>
+            <pre><code>{{ b.content | escape }}</code></pre>
+            {% endif %}
+
+            {% if b.items and b.items.properties %}
+            {% if isStandardType(b.items) %}
+                <p><strong>Items</strong>: {{ b.items }}</p>
+            {% endif %}
+
+            {% if not isStandardType(b.items) %}
+                <p><strong>Items</strong>: {{ b.items.displayName }}</p>
+
+                {% if b.items.properties or b.items.examples.length %}
+                <div class="items">
+                    {% if b.items.properties %}
+                    <ul>
+                        {% for item in b.items.properties %}
+                        {% include "./item.nunjucks" %}
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    {# Response - Array item examples #}
+                    {% set parent = b.items.examples %}
+                    {% include "./examples.nunjucks" %}
+                </div>
+                {% endif %}
+            {% endif %}
+            {% endif %}
+
+            {% if b.properties.length %}
+            <strong>Properties</strong>
+            <ul>
+                {% for item in b.properties %}
+                {% include "./item.nunjucks" %}
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            {# Response - Body examples #}
+            {% set parent = b %}
+            {% include "./examples.nunjucks" %}
+            </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>

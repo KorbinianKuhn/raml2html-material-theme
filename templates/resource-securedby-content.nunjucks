@@ -1,0 +1,54 @@
+<div id="{{ resource.uniqueId }}_{{ method.method }}_securedby">
+{% for securedBy in method.securedBy %}
+    {% set securityScheme = securitySchemes[securedBy.schemeName] %}
+    <div class="section">
+    <p>Secured by {{ securityScheme.displayName }}</p>
+    </div>
+
+    {% if securityScheme.describedBy.headers.length %}
+    <ul class="collection with-header">
+        <li class="collection-header"><h5>Headers</h5></li>
+        {% for item in securityScheme.describedBy.headers %}
+        {% include "./item.nunjucks" %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if securityScheme.describedBy.queryParameters.length %}
+    <ul class="collection with-header">
+        <li class="collection-header"><h5>Query Parameters</h5></li>
+        {% for item in securityScheme.describedBy.queryParameters %}
+        {% include "./item.nunjucks" %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if securityScheme.describedBy.responses.length %}
+    <ul class="tabs">
+        {% for response in securityScheme.describedBy.responses.length %}
+        <li class="tab"><a href="#{{ resource.uniqueId }}_{{ method.method }}_securedby_response_{{ response.code }}">{{ response.code }}</a></li>
+        {% endfor %}
+    </ul>
+
+    {% for response in securityScheme.describedBy.responses.length %}
+    <div id="{{ resource.uniqueId }}_{{ method.method }}_securedby_response_{{ response.code }}">
+        {% markdown %}
+        {{ response.description }}
+        {% endmarkdown %}
+
+        {% if response.headers.length %}
+        <ul class="collection with-header">
+            <li class="collection-header"><h5>Headers</h5></li>
+            {% for item in response.headers %}
+                {% include "./item.nunjucks" %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    {% endif %}
+
+
+{% endfor %}
+</div>

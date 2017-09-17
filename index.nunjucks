@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>{{ title }} API documentation</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="generator" content="https://github.com/raml2html/raml2html {{ config.raml2HtmlVersion }}">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" media="screen,projection">
+
+    <style>
+        .badge {
+            text-transform: uppercase;
+            font-weight:bold !important;
+        }
+
+        .badge i {
+            float: left;
+            margin-right: 0.2rem;
+            line-height:1.4rem;
+            font-size:1rem;
+            width:auto;
+        }
+
+        .badge-get {
+            background-color: #03a9f4 !important;
+        }
+
+        .badge-post {
+            background-color: #4caf50 !important;
+        }
+
+        .badge-delete {
+            background-color: #f44336 !important;
+        }
+
+        .badge-put {
+            background-color: #00bcd4 !important;
+        }
+
+        .badge-patch {
+            background-color: #9c27b0 !important;
+        }
+
+        .text-primary {
+            color: #ee6e73 !important;
+        }
+
+        .bg-primary {
+            background-color:#ee6e73 !important;
+        }
+
+        .tabs a {
+            color: #039be5 !important;
+        }
+
+        .tabs .indicator {
+            background-color: #039be5 !important;
+        }
+
+        .tabs.response a {
+            color: #4db6ac !important;
+        }
+        .tabs.response .indicator{
+            background-color: #4db6ac !important;
+        }
+
+        .space-between {
+            justify-content: space-between;
+        }
+
+        .d-flex {
+            display:flex;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="section grey darken-4">
+        <div class="container">
+            <h3 class="white-text">{{ title }} API documentation{% if version %} <small class="white-text">version {{ version }}</small>{% endif %}</h3>
+            <p class="white-text">{{ baseUri }}</p>
+        </div>
+    </div>
+    </div>
+
+    {% if description or documentation.length %}
+    <div class="container">
+        <div class="section">
+            {% if description %}
+            <p>{{ description }}</p>
+            {% endif %} {% if baseUriParameters %}
+            <ul>
+                {% for item in baseUriParameters %} {% include "./templates/item.nunjucks" %} {% endfor %}
+            </ul>
+            {% endif %} {% for chapter in documentation %}
+            <h5>{{ chapter.title }}</h5>
+            {% markdown %} {{ chapter.content }} {% endmarkdown %} {% endfor %}
+        </div>
+    </div>
+
+    <div class="divider"></div>
+    {% endif %}
+
+    <div class="container">
+    {% for resource in resources %}
+    <div class="section">
+        <h5>{% if resource.displayName %}{{ resource.displayName}}{% else %}{{ resource.relativeUri }}{% endif %}</h5>
+        <ul class="collection">
+            <!--<li class="collection-item grey lighten-3">
+                <strong>{% if resource.displayName %}{{ resource.displayName}}{% else %}{{ resource.relativeUri }}{% endif %}</strong>
+            </li>-->
+            {% include "./templates/resource.nunjucks" %}
+        </ul>
+    </div>
+    {% endfor %}
+
+    </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js "></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.modal').modal();
+        });
+
+        $(document).ready(function () {
+            $('ul.tabs').tabs('select_tab', 'tab_id');
+        });
+
+        $(document).ready(function(){
+            $('.scrollspy').scrollSpy();
+        });
+
+    </script>
+</body>
+
+</html>
