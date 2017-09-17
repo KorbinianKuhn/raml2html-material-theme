@@ -4,7 +4,7 @@
   "description": "A raml2html material design theme",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "raml2html --template index.nunjucks -i example/api.raml -o example/api.html"
   },
   "repository": "https://github.com/KorbinianKuhn/raml2html-material-theme",
   "keywords": [

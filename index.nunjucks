@@ -25,11 +25,11 @@
         }
 
         .badge-get {
-            background-color: #03a9f4 !important;
+            background-color: #1976d2 !important;
         }
 
         .badge-post {
-            background-color: #4caf50 !important;
+            background-color: #388e3c !important;
         }
 
         .badge-delete {
@@ -37,11 +37,19 @@
         }
 
         .badge-put {
-            background-color: #00bcd4 !important;
+            background-color: #f57c00 !important;
         }
 
         .badge-patch {
-            background-color: #9c27b0 !important;
+            background-color: #7b1fa2 !important;
+        }
+
+        .badge-head {
+            background-color: #222222 !important;
+        }
+
+        .badge-options {
+            background-color: #616161 !important;
         }
 
         .text-primary {
@@ -73,6 +81,32 @@
 
         .d-flex {
             display:flex;
+        }
+
+        .chip {
+            line-height: 22px;
+            font-size:15px;
+            height:22px;
+            margin-bottom:0;
+            border-radius:2px;
+            padding: 0 5px;
+            margin-left:5px;
+        }
+
+        ul.browser-default {
+            padding-left:20px;
+        }
+        ul.browser-default li {
+            margin-top:10px;
+        }
+
+        .example {
+            border: 1px solid #e0e0e0;
+        }
+
+        .example pre {
+            padding: 8px;
+            margin: 0px;
         }
     </style>
 
@@ -111,9 +145,6 @@
     <div class="section">
         <h5>{% if resource.displayName %}{{ resource.displayName}}{% else %}{{ resource.relativeUri }}{% endif %}</h5>
         <ul class="collection">
-            <!--<li class="collection-item grey lighten-3">
-                <strong>{% if resource.displayName %}{{ resource.displayName}}{% else %}{{ resource.relativeUri }}{% endif %}</strong>
-            </li>-->
             {% include "./templates/resource.nunjucks" %}
         </ul>
     </div>
@@ -129,14 +160,6 @@
     <script>
         $(document).ready(function () {
             $('.modal').modal();
-        });
-
-        $(document).ready(function () {
-            $('ul.tabs').tabs('select_tab', 'tab_id');
-        });
-
-        $(document).ready(function(){
-            $('.scrollspy').scrollSpy();
         });
 
     </script>

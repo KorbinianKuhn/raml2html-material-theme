@@ -8,18 +8,26 @@
     {% if securityScheme.describedBy.headers.length %}
     <ul class="collection with-header">
         <li class="collection-header"><h5>Headers</h5></li>
-        {% for item in securityScheme.describedBy.headers %}
-        {% include "./item.nunjucks" %}
-        {% endfor %}
-      </ul>
+        <li class="collection-item">
+            <ul class="browser-default">
+            {% for item in securityScheme.describedBy.headers %}
+            {% include "./item.nunjucks" %}
+            {% endfor %}
+            </ul>
+        </li>
+    </ul>
     {% endif %}
 
     {% if securityScheme.describedBy.queryParameters.length %}
     <ul class="collection with-header">
         <li class="collection-header"><h5>Query Parameters</h5></li>
-        {% for item in securityScheme.describedBy.queryParameters %}
-        {% include "./item.nunjucks" %}
-        {% endfor %}
+        <li class="collection-item">
+            <ul class="browser-default">
+            {% for item in securityScheme.describedBy.queryParameters %}
+            {% include "./item.nunjucks" %}
+            {% endfor %}
+            </ul>
+        </li>
     </ul>
     {% endif %}
 
@@ -39,9 +47,13 @@
         {% if response.headers.length %}
         <ul class="collection with-header">
             <li class="collection-header"><h5>Headers</h5></li>
-            {% for item in response.headers %}
+            <li class="collection-item">
+                <ul class="browser-default">
+                {% for item in response.headers %}
                 {% include "./item.nunjucks" %}
-            {% endfor %}
+                {% endfor %}
+                </ul>
+            </li>
         </ul>
         {% endif %}
     </div>

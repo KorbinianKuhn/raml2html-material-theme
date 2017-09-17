@@ -16,9 +16,13 @@
         {% if response.headers.length %}
         <ul class="collection with-header">
             <li class="collection-header"><h5>Headers</h5></li>
-            {% for item in response.headers %}
-            {% include "./item.nunjucks" %}
-            {% endfor %}
+            <li class="collection-item">
+                <ul class="browser-default">
+                {% for item in response.headers %}
+                {% include "./item.nunjucks" %}
+                {% endfor %}
+                </ul>
+            </li>
         {% endif %}
 
         {% if response.body.length %}
@@ -91,7 +95,7 @@
 
             {% if b.properties.length %}
             <strong>Properties</strong>
-            <ul>
+            <ul class="browser-default">
                 {% for item in b.properties %}
                 {% include "./item.nunjucks" %}
                 {% endfor %}

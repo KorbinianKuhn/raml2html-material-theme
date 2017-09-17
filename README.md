@@ -38,4 +38,4 @@ raml2html-material-theme is an open source project and your contribution is very
 
 ## License
 
-raml2html-default-theme is available under the MIT license. See the LICENSE file for more info.
+raml2html-material-theme is available under the MIT license. See the LICENSE file for more info.

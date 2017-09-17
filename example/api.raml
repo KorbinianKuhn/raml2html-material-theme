@@ -1,0 +1,89 @@
+#%RAML 1.0
+title: Example
+version: v1
+baseUri: https://example.com/api/{version}
+mediaType: application/json
+
+/info:
+    options: Options request.
+    head: Head request.
+
+/users:
+    get: 
+        description: Get all users.
+        queryParameters:
+            limit:
+                description: Limit the amount of returned users to this number.
+                required: false
+                type: integer
+                example: 50
+    post: 
+        description: Add new user.
+        body:
+            application/json:
+                type: object
+                properties:
+                    email:
+                        description: Email address of the user.
+                        type: string
+                        required: true
+                    password:
+                        description: Password of the user.
+                        type: string
+                        required: true
+                        minLength: 6
+                        maxLength: 20
+                    age:
+                        description: Age of the user.
+                        type: integer
+                        required: false
+                        minimum: 10
+                        maximum: 110
+                    gender:
+                        description: Gender of the user.
+                        enum: ["male", "female"]
+                        required: false
+                    hobbies:
+                        description: Hobbies of the user.
+                        type: array[string]
+                        required: false
+                    name:
+                        description: Name of the user.
+                        type: object
+                        properties:
+                            firstname:
+                                description: First name.
+                                example: "Jane"
+                            lastname:
+                                description: Last name.
+                                example: "Doe"
+                examples: 
+                    full: {"email": "jane.doe@example.com", "password": "secret", "name": {"firstname": "Jane", "lastname": "Doe"}, "age": 99}
+                    minimum: {"email": "jane.doe@example.com", "password": "secret"}
+        responses:
+            200:
+                description: "Response description"
+                headers:
+                    Authorization:
+                        description: |
+                            Used to send a valid OAuth 2 access token. Do not use
+                            with the "access_token" query string parameter.
+                        type: string
+                body:
+                    application/json: JSON
+                    application/xml: XML
+            400:
+                description: "Bad Request"
+            401:
+                description: "Unauthorized."
+    /{id}:
+        uriParameters:
+            id:
+                description: The id of the user.
+                type: interger
+                required: true
+                example: 0
+        delete: 
+            description: Delete user by id.
+        patch: Change specific value by user id.
+        put: Change user by id.
