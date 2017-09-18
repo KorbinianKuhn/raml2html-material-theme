@@ -7,11 +7,17 @@
 
     {% for response in method.responses %}
     <div id="{{ resource.uniqueId }}_{{ method.method }}_response_{{ response.code }}">
-        <p>
-        {% markdown %}
-        {{ response.description }}
-        {% endmarkdown %}
-        </p>
+
+        {% if response.description %}
+        <ul class="collection with-header">
+            <li class="collection-header"><h5>Description</h5></li>
+            <li class="collection-item">
+            {% markdown %}
+            {{ response.description }}
+            {% endmarkdown %}
+            </li>
+        </ul>
+        {% endif %}
 
         {% if response.headers.length %}
         <ul class="collection with-header">

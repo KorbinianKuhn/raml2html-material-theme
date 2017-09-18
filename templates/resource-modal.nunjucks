@@ -14,37 +14,20 @@
       </div>
 
       {% if method.securedBy.length %}
-        <div class="section">
-          <ul class="collection">
-          {% for securedBy in method.securedBy %}
+      <ul>
+        <li class="collection-item">
+          <div>
+            <a href="#!" class="secondary-content"><i title="Authentication required" class="material-icons black-text">lock</i></a>
+            Secured by:
+            {% for securedBy in method.securedBy %}
               {% if securedBy %}
                 {% set securityScheme = securitySchemes[securedBy.schemeName] %}
-
-                <li class="collection-item grey lighten-3">
-                  <div>
-                    Secured by <b>{{securityScheme.displayName}}</b>
-                    <a href="#!" class="secondary-content"><i title="Authentication required" class="material-icons black-text">lock</i></a>
-                    <p>
-                    {% if securityScheme.description %}
-                      {% markdown %}
-                      {{ securityScheme.description }}
-                      {% endmarkdown %}
-                    {% endif %}
-                    </p>
-                    {% if securedBy.scopes %}
-                    with scopes:
-                    <ul>
-                        {% for scope in securedBy.scopes %}
-                        <li>{{scope}}</li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                  </div>
-                </li>
+                <b>{{securityScheme.displayName}}</b>&nbsp;
               {% endif %}
-          {% endfor %}
-          </ul>
-        </div>
+            {% endfor %}
+          </div>
+         </li>
+        </ul>
         {% endif %}
 
         <div class="section">

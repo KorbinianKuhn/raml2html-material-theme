@@ -42,6 +42,10 @@ raml2html \
 
 raml2html-material-theme is an open source project and your contribution is very much appreciated. Fork this repository and push in your ideas.
 
+## ToDo
+
+- Extend example raml file to test all functionalities of raml and this theme
+
 ## License
 
 raml2html-material-theme is available under the MIT license. See the LICENSE file for more info.

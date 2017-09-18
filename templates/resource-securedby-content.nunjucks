@@ -1,37 +1,67 @@
 <div id="{{ resource.uniqueId }}_{{ method.method }}_securedby">
-{% for securedBy in method.securedBy %}
+
+    <ul class="tabs response">
+        {% for securedBy in method.securedBy %}
+        {% set securityScheme = securitySchemes[securedBy.schemeName] %}
+        <li class="tab"><a href="#{{ resource.uniqueId }}_{{ method.method }}_securedby_{{ securityScheme.displayName }}">{{ securityScheme.displayName }}</a></li>
+        {% endfor %}
+    </ul>
+
+    {% for securedBy in method.securedBy %}
     {% set securityScheme = securitySchemes[securedBy.schemeName] %}
-    <div class="section">
-    <p>Secured by {{ securityScheme.displayName }}</p>
-    </div>
+    <div id="{{ resource.uniqueId }}_{{ method.method }}_securedby_{{ securityScheme.displayName }}">
 
-    {% if securityScheme.describedBy.headers.length %}
-    <ul class="collection with-header">
-        <li class="collection-header"><h5>Headers</h5></li>
-        <li class="collection-item">
+        {% if securityScheme.description %}
+        <ul class="collection with-header">
+            <li class="collection-header"><h5>Description</h5></li>
+            <li class="collection-item">
+            {% markdown %}
+            {{ securityScheme.description }}
+            {% endmarkdown %}
+            </li>
+        </ul>
+        {% endif %}
+
+        {% if securedBy.scopes %}
+        <ul class="collection with-header">
+            <li class="collection-header"><h5>Scopes</h5></li>
+            <li class="collection-item">
             <ul class="browser-default">
-            {% for item in securityScheme.describedBy.headers %}
-            {% include "./item.nunjucks" %}
-            {% endfor %}
+                {% for scope in securedBy.scopes %}
+                <li>{{scope}}</li>
+                {% endfor %}
             </ul>
-        </li>
-    </ul>
-    {% endif %}
+            </li>
+        </ul>
+        {% endif %}
 
-    {% if securityScheme.describedBy.queryParameters.length %}
-    <ul class="collection with-header">
-        <li class="collection-header"><h5>Query Parameters</h5></li>
-        <li class="collection-item">
-            <ul class="browser-default">
-            {% for item in securityScheme.describedBy.queryParameters %}
-            {% include "./item.nunjucks" %}
-            {% endfor %}
-            </ul>
-        </li>
-    </ul>
-    {% endif %}
+        {% if securityScheme.describedBy.headers.length %}
+        <ul class="collection with-header">
+            <li class="collection-header"><h5>Headers</h5></li>
+            <li class="collection-item">
+                <ul class="browser-default">
+                {% for item in securityScheme.describedBy.headers %}
+                {% include "./item.nunjucks" %}
+                {% endfor %}
+                </ul>
+            </li>
+        </ul>
+        {% endif %}
 
-    {% if securityScheme.describedBy.responses.length %}
+        {% if securityScheme.describedBy.queryParameters.length %}
+        <ul class="collection with-header">
+            <li class="collection-header"><h5>Query Parameters</h5></li>
+            <li class="collection-item">
+                <ul class="browser-default">
+                {% for item in securityScheme.describedBy.queryParameters %}
+                {% include "./item.nunjucks" %}
+                {% endfor %}
+                </ul>
+            </li>
+        </ul>
+        {% endif %}
+
+        {% if securityScheme.describedBy.responses.length %}
     <ul class="tabs">
         {% for response in securityScheme.describedBy.responses.length %}
         <li class="tab"><a href="#{{ resource.uniqueId }}_{{ method.method }}_securedby_response_{{ response.code }}">{{ response.code }}</a></li>
@@ -60,7 +90,8 @@
     {% endfor %}
 
     {% endif %}
+       
+    </div>
+    {% endfor %}
 
-
-{% endfor %}
 </div>
