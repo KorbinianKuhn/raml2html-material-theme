@@ -93,7 +93,7 @@
                     {% endif %}
 
                     {# Response - Array item examples #}
-                    {% set parent = b.items.examples %}
+                    {% set parent = b.items %}
                     {% include "./examples.nunjucks" %}
                 </div>
                 {% endif %}
