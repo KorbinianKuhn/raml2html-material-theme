@@ -1,5 +1,9 @@
 # raml2html material theme
 
+[![npm](https://img.shields.io/npm/dt/raml2html-material-theme.svg?style=flat-square)](https://www.npmjs.com/package/raml2html-material-theme)
+[![npm-version](https://img.shields.io/npm/v/raml2html-material-theme.svg?style=flat-square)](https://www.npmjs.com/package/raml2html-material-theme)
+![license](https://img.shields.io/github/license/KorbinianKuhn/raml2html-material-theme.svg?style=flat-square)
+
 A material design theme for raml2html based on the [default-theme](https://github.com/raml2html/default-theme) and [materialize](https://github.com/Dogfalo/materialize).
 
 ## Installation
