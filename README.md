@@ -1,5 +1,7 @@
 # raml2html material theme
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/KorbinianKuhn/raml2html-material-theme.svg)](https://greenkeeper.io/)
+
 [![npm](https://img.shields.io/npm/dt/raml2html-material-theme.svg?style=flat-square)](https://www.npmjs.com/package/raml2html-material-theme)
 [![npm-version](https://img.shields.io/npm/v/raml2html-material-theme.svg?style=flat-square)](https://www.npmjs.com/package/raml2html-material-theme)
 ![license](https://img.shields.io/github/license/KorbinianKuhn/raml2html-material-theme.svg?style=flat-square)
