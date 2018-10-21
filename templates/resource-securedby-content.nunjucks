@@ -62,34 +62,40 @@
         {% endif %}
 
         {% if securityScheme.describedBy.responses.length %}
-    <ul class="tabs">
-        {% for response in securityScheme.describedBy.responses.length %}
-        <li class="tab"><a href="#{{ resource.uniqueId }}_{{ method.method }}_securedby_response_{{ response.code }}">{{ response.code }}</a></li>
-        {% endfor %}
-    </ul>
-
-    {% for response in securityScheme.describedBy.responses.length %}
-    <div id="{{ resource.uniqueId }}_{{ method.method }}_securedby_response_{{ response.code }}">
-        {% markdown %}
-        {{ response.description }}
-        {% endmarkdown %}
-
-        {% if response.headers.length %}
         <ul class="collection with-header">
-            <li class="collection-header"><h5>Headers</h5></li>
+            <li class="collection-header"><h5>Responses</h5></li>
             <li class="collection-item">
-                <ul class="browser-default">
-                {% for item in response.headers %}
-                {% include "./item.nunjucks" %}
-                {% endfor %}
+                <div>
+                <ul class="tabs">
+                    {% for response in securityScheme.describedBy.responses %}
+                    <li class="tab"><a href="#{{ resource.uniqueId }}_{{ method.method }}_securedby_response_{{ response.code }}">{{ response.code }}</a></li>
+                    {% endfor %}
                 </ul>
-            </li>
+
+                {% for response in securityScheme.describedBy.responses %}
+                <div id="{{ resource.uniqueId }}_{{ method.method }}_securedby_response_{{ response.code }}">
+                    {% markdown %}
+                    {{ response.description }}
+                    {% endmarkdown %}
+
+                    {% if response.headers.length %}
+                    <ul class="collection with-header">
+                        <li class="collection-header"><h5>Headers</h5></li>
+                        <li class="collection-item">
+                            <ul class="browser-default">
+                            {% for item in response.headers %}
+                            {% include "./item.nunjucks" %}
+                            {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                </div>
+             </li>
         </ul>
         {% endif %}
-    </div>
-    {% endfor %}
-
-    {% endif %}
        
     </div>
     {% endfor %}

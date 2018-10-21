@@ -32,42 +32,42 @@
 
         <div class="section">
             <ul class="tabs">
-                {% if method.allUriParameters.length or method.queryString or method.queryParameters or method.headers or method.body %}
-                  <li class="tab active">
-                    <a href="#{{ resource.uniqueId }}_{{ method.method }}_request">Request</a>
-                  </li>
-                {% endif %}
-
-                {% if method.responses %}
-                  <li class="tab {%
-                    if not method.allUriParameters.length and not method.queryParameters
-                    and not method.queryString
-                    and not method.headers and not method.body
-                    %} active{%
-                    endif
-                    %}">
-                    <a href="#{{ resource.uniqueId }}_{{ method.method }}_response">Response</a>
-                  </li>
-                {% endif %}
-
-                {% if method.securedBy.length %}
-                  <li class="tab">
-                    <a href="#{{ resource.uniqueId }}_{{ method.method }}_securedby">Security</a>
-                  </li>
-                {% endif %}
-              </ul>
-
               {% if method.allUriParameters.length or method.queryString or method.queryParameters or method.headers or method.body %}
-              {% include "./resource-request-content.nunjucks" %}
+                <li class="tab active">
+                  <a href="#{{ resource.uniqueId }}_{{ method.method }}_request">Request</a>
+                </li>
               {% endif %}
 
               {% if method.responses %}
-              {% include "./resource-response-content.nunjucks" %}
+                <li class="tab {%
+                  if not method.allUriParameters.length and not method.queryParameters
+                  and not method.queryString
+                  and not method.headers and not method.body
+                  %} active{%
+                  endif
+                  %}">
+                  <a href="#{{ resource.uniqueId }}_{{ method.method }}_response">Response</a>
+                </li>
               {% endif %}
 
               {% if method.securedBy.length %}
-              {% include "./resource-securedby-content.nunjucks" %}
+                <li class="tab">
+                  <a href="#{{ resource.uniqueId }}_{{ method.method }}_securedby">Security</a>
+                </li>
               {% endif %}
+            </ul>
+
+            {% if method.allUriParameters.length or method.queryString or method.queryParameters or method.headers or method.body %}
+            {% include "./resource-request-content.nunjucks" %}
+            {% endif %}
+
+            {% if method.responses %}
+            {% include "./resource-response-content.nunjucks" %}
+            {% endif %}
+
+            {% if method.securedBy.length %}
+            {% include "./resource-securedby-content.nunjucks" %}
+            {% endif %}
 
         </div>
 

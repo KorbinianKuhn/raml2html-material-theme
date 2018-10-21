@@ -8,20 +8,19 @@
     <meta name="generator" content="https://github.com/raml2html/raml2html {{ config.raml2HtmlVersion }}">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" media="screen,projection">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
     <style>
         .badge {
             text-transform: uppercase;
             font-weight:bold !important;
+            display: flex !important;
+            align-items: center !important;
         }
 
         .badge i {
-            float: left;
             margin-right: 0.2rem;
-            line-height:1.4rem;
-            font-size:1rem;
-            width:auto;
+            font-size: 1rem;
         }
 
         .badge-get {
@@ -64,6 +63,20 @@
             color: #039be5 !important;
         }
 
+        .tabs a:focus {
+            background-color: #e1f5fe !important;
+        }
+
+        .tabs .tab a.active { 
+            border-bottom: 2px solid #4db6ac; 
+        }
+
+        .tabs .indicator { display: none; }
+
+        .tabs .tab a.active { 
+            border-bottom: 2px solid #039be5; 
+        }
+
         .tabs .indicator {
             background-color: #039be5 !important;
         }
@@ -71,6 +84,15 @@
         .tabs.response a {
             color: #4db6ac !important;
         }
+
+        .tabs.response .tab a.active { 
+            border-bottom: 2px solid #4db6ac; 
+        }
+
+        .tabs.response a:focus {
+            background-color: #e0f2f1 !important;
+        }
+
         .tabs.response .indicator{
             background-color: #4db6ac !important;
         }
@@ -126,7 +148,6 @@
             <p class="white-text">{{ baseUri }}</p>
         </div>
     </div>
-    </div>
 
     {% if description or documentation.length %}
     <div class="container">
@@ -147,35 +168,22 @@
     {% endif %}
 
     <div class="container">
-    {% for resource in resources %}
-    <div class="section">
-        <h5>{% if resource.displayName %}{{ resource.displayName}}{% else %}{{ resource.relativeUri }}{% endif %}</h5>
-        <ul class="collection">
-            {% include "./templates/resource.nunjucks" %}
-        </ul>
-    </div>
-    {% endfor %}
-
-    </div>
-
+        {% for resource in resources %}
+        <div class="section">
+            <h5>{% if resource.displayName %}{{ resource.displayName}}{% else %}{{ resource.relativeUri }}{% endif %}</h5>
+            <ul class="collection">
+                {% include "./templates/resource.nunjucks" %}
+            </ul>
+        </div>
+        {% endfor %}
     </div>
 
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js "></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js "></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('.modal').modal({
-                ready: function()  {
-                    $('ul.tabs').tabs();
-                }
-            });
+            M.AutoInit();
         });
-
-        $(document).ready(function(){
-            $('ul.tabs').tabs();
-        });
-
     </script>
 </body>
 
