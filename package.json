@@ -1,6 +1,6 @@
 {
   "name": "raml2html-material-theme",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A raml2html material design theme",
   "main": "index.js",
   "scripts": {
