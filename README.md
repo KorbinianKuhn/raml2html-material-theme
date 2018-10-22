@@ -11,6 +11,14 @@ A material design theme for raml2html using [materialize](https://github.com/Dog
 - JSON Syntax Highlighting
 - Copy examples to clipboard functionality
 
+## Screenshots
+
+![Screenshot1](images/screenshot-01.png)
+
+![Screenshot2](images/screenshot-02.png)
+
+![Screenshot3](images/screenshot-03.png)
+
 ## Installation
 
 ```
