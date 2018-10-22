@@ -1,10 +1,15 @@
 {% if parent.examples.length %}
-<div style="display:flex;align-items:center;margin-top:5px;">
-    <span style="margin-right: 5px;">{{ 'Example' if parent.examples.length == 1 else 'Examples' }}</span>
-    <div style="display:flex;flex-direction:column;flex:1;">
+<ul class="collapsible">
+    {% set counter = 0 %}
     {% for example in parent.examples %}
+    {% set counter = counter + 1 %}
+    {% if counter == 1 %}
+    <li class="active">
+    {% else %}
+    <li>
+    {% endif %}
+        <div class="collapsible-header">
         {% if example.displayName or example.description %}
-        <p>
             {% if example.displayName and example.description %}
                 <span class="bold">{{ example.displayName }}</span>: {{ example.description }}
             {% else %}
@@ -15,12 +20,14 @@
                     <span class="bold">{{ example.description }}</span>
                 {% endif %}
             {% endif %}
-        </p>
         {% endif %}
-        <div class="example grey lighten-4">
+        </div>
+        <div class="collapsible-body example example grey lighten-4">
+            <textarea class="copy-to-clipboard-text" id="{{ resource.uniqueId }}_{{ method.method }}_request_{{ counter }}">{{ example.value | escape }}</textarea>
+            <a class="copy-to-clipboard waves-effect waves-teal btn-flat" onclick="copyToClipboard('#{{ resource.uniqueId }}_{{ method.method }}_request_{{ counter }}')">Copy</a>
             <pre><code class="json hljs">{{ example.value | escape }}</code></pre>
         </div>
+    </li>
     {% endfor %}
-    </div>
-</div>
+</ul>
 {% endif %}

@@ -3,7 +3,7 @@
 
       <div class="section">
         <span class="new badge badge-{{ method.method }}" data-badge-caption="{{ method.method }}">{% if method.securedBy.length %} <i title="Authentication required" class="material-icons">lock</i>{% endif %}</span>
-        <strong><span class="parent">{{ resource.parentUrl }}</span>{{ resource.relativeUri }}</strong>
+        <span class="bold"><span class="parent">{{ resource.parentUrl }}</span>{{ resource.relativeUri }}</span>
         {% if method.description %}
         <p>
             {% markdown %}
@@ -31,10 +31,10 @@
         {% endif %}
 
         <div class="section">
-            <ul class="tabs">
+            <ul class="tabs request">
               {% if method.allUriParameters.length or method.queryString or method.queryParameters or method.headers or method.body %}
-                <li class="tab active">
-                  <a href="#{{ resource.uniqueId }}_{{ method.method }}_request">Request</a>
+                <li class="tab">
+                  <a class="active" href="#{{ resource.uniqueId }}_{{ method.method }}_request">Request</a>
                 </li>
               {% endif %}
 

@@ -71,86 +71,99 @@
 
         {% for b in method.body %}
         <li class="collection-item">
-        <p><strong>Media type</strong>: {{ b.key }}</p>
 
-        {% if b.type %}
-            {% if isStandardType(b.type) %}
-            {% if b.type === 'array' and b.items %}
-                <p><strong>Type</strong>: array of {% if isStandardType(b.items) %}{{ b.items }}{% else %}{{ b.items.displayName }}{% endif %}</p>
-            {% elif b.type === 'union' and b.anyOf.length %}
-                <p><strong>Possible types</strong>:
-                <ul>
-                    {% for super in b.anyOf %}
-                    <li>
-                        <p><strong>{{ super.displayName }}</strong></p>
-                        <div class="items">
-                        <ul>
-                            {% for item in super.properties %}
-                            {% include "./item.nunjucks" %}
-                            {% endfor %}
-                        </ul>
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
-                </p>
-            {% else %}
-                <p><strong>Type</strong>: {{ b.type }}</p>
+        <ul class="tabs">
+            <li class="tab"><a href="#{{ resource.uniqueId }}_{{ method.method }}_request_general">General</a></li>
+            {% if b.properties.length %}
+            <li class="tab"><a class="active" href="#{{ resource.uniqueId }}_{{ method.method }}_request_properties">Properties</a></li>
             {% endif %}
-            {% else %}
-            <p><strong>Type</strong>:</p>
-            <pre><code>{{ b.type | escape }}</code></pre>
-            {% endif %}
-        {% endif %}
+            <li class="tab"><a href="#{{ resource.uniqueId }}_{{ method.method }}_request_examples">Examples</a></li>
+        </ul>
 
-        {% if b.content %}
-            <p><strong>Content</strong>:</p>
-            <pre><code>{{ b.content | escape }}</code></pre>
-        {% endif %}
 
-        {% if b.items and b.items.properties %}
-            {% if isStandardType(b.items) %}
-            <p><strong>Items</strong>: {{ b.items }}</p>
-            {% endif %}
+        <div id="{{ resource.uniqueId }}_{{ method.method }}_request_general">
+            <p><span class="bold">Media type</span>: {{ b.key }}</p>
 
-            {% if not isStandardType(b.items) %}
-            <p><strong>Items</strong>: {{ b.items.displayName }}</p>
-
-            {% if b.items.properties or b.items.examples.length %}
-                <div class="items">
-                {% if b.items.properties %}
-                    <ul class="collapsible">
-                    {% for item in b.items.properties %}
-                        {% include "./item.nunjucks" %}
-                    {% endfor %}
+            {% if b.type %}
+                {% if isStandardType(b.type) %}
+                {% if b.type === 'array' and b.items %}
+                    <p><span class="bold">Type</span>: array of {% if isStandardType(b.items) %}{{ b.items }}{% else %}{{ b.items.displayName }}{% endif %}</p>
+                {% elif b.type === 'union' and b.anyOf.length %}
+                    <p><span class="bold">Possible types</span>:
+                    <ul>
+                        {% for super in b.anyOf %}
+                        <li>
+                            <p><span class="bold">{{ super.displayName }}</span></p>
+                            <div class="items">
+                            <ul>
+                                {% for item in super.properties %}
+                                {% include "./item.nunjucks" %}
+                                {% endfor %}
+                            </ul>
+                            </div>
+                        </li>
+                        {% endfor %}
                     </ul>
+                    </p>
+                {% else %}
+                    <p><span class="bold">Type</span>: {{ b.type }}</p>
+                {% endif %}
+                {% else %}
+                <p><span class="bold">Type</span>:</p>
+                <pre><code>{{ b.type | escape }}</code></pre>
+                {% endif %}
+            {% endif %}
+
+            {% if b.content %}
+                <p><span class="bold">Content</span>:</p>
+                <pre><code>{{ b.content | escape }}</code></pre>
+            {% endif %}
+
+            {% if b.items and b.items.properties %}
+                {% if isStandardType(b.items) %}
+                <p><span class="bold">Items</span>: {{ b.items }}</p>
                 {% endif %}
 
-                {# Request - Array item examples #}
-                {% set parent = b.items %}
-                {% include "./examples.nunjucks" %}
-                </div>
+                {% if not isStandardType(b.items) %}
+                <p><span class="bold">Items</span>: {{ b.items.displayName }}</p>
+
+                {% if b.items.properties or b.items.examples.length %}
+                    <div class="items">
+                    {% if b.items.properties %}
+                        <ul class="collapsible">
+                        {% for item in b.items.properties %}
+                            {% include "./item.nunjucks" %}
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                    {# Request - Array item examples #}
+                    {% set parent = b.items %}
+                    {% include "./examples.nunjucks" %}
+                    </div>
+                {% endif %}
+                {% endif %}
             {% endif %}
-            {% endif %}
-        {% endif %}
+        </div>
 
         {% if b.properties.length %}
-            <strong>Properties:</strong>
+        <div id="{{ resource.uniqueId }}_{{ method.method }}_request_properties">
             <ul class="browser-default">
             {% for item in b.properties %}
                 {% include "./item.nunjucks" %}
             {% endfor %}
             </ul>
+        </div>
         {% endif %}
-
-        {# Request - Body examples #}
-        {% set parent = b %}
-        {% include "./examples.nunjucks" %}
+        <div id="{{ resource.uniqueId }}_{{ method.method }}_request_examples">
+            {% set parent = b %}
+            {% include "./resource-request-examples.nunjucks" %}
+        </div>
 
         </li>
         {% endfor %}
 
-        </ul>
+        </u>
     {% endif %}
 
 </div>

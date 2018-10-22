@@ -4,7 +4,12 @@
 [![npm-version](https://img.shields.io/npm/v/raml2html-material-theme.svg?style=flat-square)](https://www.npmjs.com/package/raml2html-material-theme)
 ![license](https://img.shields.io/github/license/KorbinianKuhn/raml2html-material-theme.svg?style=flat-square)
 
-A material design theme for raml2html based on the [default-theme](https://github.com/raml2html/default-theme) and [materialize](https://github.com/Dogfalo/materialize).
+A material design theme for raml2html using [materialize](https://github.com/Dogfalo/materialize) and [highlightjs](https://github.com/highlightjs/highlight.js).
+
+- Compact overview
+- Interactive search
+- JSON Syntax Highlighting
+- Copy examples to clipboard functionality
 
 ## Installation
 
@@ -22,15 +27,16 @@ $ npm test
 
 In javascript:
 
-``` javascript
-const raml2html = require('raml2html');
-const materialConfig = raml2html.getConfigForTheme('raml2html-material-theme');
+```javascript
+const raml2html = require("raml2html");
+const materialConfig = raml2html.getConfigForTheme("raml2html-material-theme");
 
 // source can be a filename, url or parsed RAML object
-const source = 'path/to/raml/file'
-raml2html.render(source, materialConfig)
-  .then((html) => console.log(html))
-  .catch((error) => console.error(error))
+const source = "path/to/raml/file";
+raml2html
+  .render(source, materialConfig)
+  .then(html => console.log(html))
+  .catch(error => console.error(error));
 ```
 
 On the command line:

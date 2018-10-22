@@ -1,6 +1,6 @@
 {% if (resource.methods or (resource.description and resource.parentUrl)) %}
-<li class="collection-item space-between d-flex">
-  <span>
+<li class="collection-item space-between d-flex search-filter">
+  <span class="search-filter-value">
       <span class="grey-text">{{ resource.parentUrl }}</span>
       <span>{{ resource.relativeUri }}</span>
   </span>
