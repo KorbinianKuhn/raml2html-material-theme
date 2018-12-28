@@ -1,0 +1,16 @@
+<mat-accordion>
+  <mat-expansion-panel 
+    *ngFor="let response of responses;let i = index"
+    [hideToggle]="!settings[i].expandable"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ response.code }}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ response.description }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <app-response [response]="response" *ngIf="settings[i].expandable"></app-response>
+  </mat-expansion-panel>
+</mat-accordion>

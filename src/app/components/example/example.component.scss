@@ -1,0 +1,9 @@
+.example {
+  position: relative;
+
+  app-copy-to-clipboard {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}

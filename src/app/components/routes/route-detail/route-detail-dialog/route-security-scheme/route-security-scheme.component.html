@@ -1,0 +1,12 @@
+<div *ngIf="scheme.settings">
+  <h4>Settings</h4>
+  <pre><code [highlight]="scheme.settings | json"></code></pre>
+</div>
+
+<app-parameters type="headers" [items]="scheme.describedBy?.headers"></app-parameters>
+<app-parameters type="query" [items]="scheme.describedBy?.queryParameters"></app-parameters>
+
+<div *ngIf="scheme.describedBy?.responses">
+  <h4>Responses</h4>
+  <app-response-list [responses]="scheme.describedBy?.responses"></app-response-list>
+</div>

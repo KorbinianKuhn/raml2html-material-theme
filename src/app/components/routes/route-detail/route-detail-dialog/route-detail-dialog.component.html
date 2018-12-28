@@ -1,0 +1,55 @@
+<div class="flex" mat-dialog-title>
+  <div class="flex flex-col flex-1">
+    <span>
+      {{ resource.parentUrl }}{{ resource.relativeUri }}
+    </span>
+    <span style="font-size:14px">{{ method.description }}</span>
+  </div>
+  <div>
+    <button 
+      mat-flat-button 
+      class="button-method" 
+      [ngClass]="'button-'+method.method"
+    ><mat-icon *ngIf="method.securedBy">lock</mat-icon>{{ method.method }}</button>
+  </div>
+</div>
+
+<mat-dialog-content>
+  <mat-tab-group color="primary" *ngIf="showTabs">
+    <mat-tab *ngIf="showRequest">
+      <ng-template mat-tab-label>
+        <mat-icon class="tab-icon flip-icon">get_app</mat-icon>
+        Request
+      </ng-template>
+      <app-route-request [method]="method"></app-route-request>
+    </mat-tab>
+    <mat-tab *ngIf="showResponse">
+      <ng-template mat-tab-label>
+        <mat-icon class="tab-icon">get_app</mat-icon>
+        Response
+      </ng-template>
+      <app-route-response [responses]="method.responses"></app-route-response>
+    </mat-tab>
+    <mat-tab *ngIf="showSecurity">
+      <ng-template mat-tab-label>
+        <mat-icon class="tab-icon">security</mat-icon>
+        Security
+      </ng-template>
+      <mat-accordion>
+        <mat-expansion-panel 
+          *ngFor="let scheme of securitySchemes;let i =index"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ scheme.type }}
+            </mat-panel-title>
+            <mat-panel-description>
+              {{ scheme.description }}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <app-route-security-scheme [scheme]="scheme"></app-route-security-scheme>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>

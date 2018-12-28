@@ -1,0 +1,38 @@
+<div class="flex align-center space-between">
+  <h4>Body</h4>
+  <mat-form-field>
+    <mat-select [(value)]="currentItem">
+      <mat-option *ngFor="let item of body" [value]="item">{{ item.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<mat-accordion>
+
+  <mat-expansion-panel *ngIf="currentItem.properties" [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Schema
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div *ngIf="currentItem.typePropertyKind === 'XML'">
+      <pre><code [highlight]="currentItem.properties"></code></pre>
+    </div>
+    <div *ngIf="currentItem.typePropertyKind === 'TYPE_EXPRESSION'">
+      <app-item-list [items]="currentItem.properties"></app-item-list>
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel *ngFor="let example of currentItem.examples;let i = index" [expanded]="!currentItem.properties && i === 0">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Example
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ example.displayName || example.name }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <app-example [example]="example"></app-example>
+  </mat-expansion-panel>
+
+</mat-accordion>

@@ -12,6 +12,8 @@ mediaType: [ application/json ]
 documentation:
   - title: Getting Started
     content: |
+      # Headline
+      ## Subheadline
       This is an example API to test all raml functionalities and the material theme. Check the /users POST route to get a complex modal with many information.
 
 securitySchemes:
@@ -136,8 +138,10 @@ securedBy: oauth_1_0
                             with the "access_token" query string parameter.
                         type: string
                 body:
-                    application/json: JSON
+                    application/json: 
+                        example: {"success": "true"}
                     application/xml: XML
+                        example: <xml><success>True</success></xml>
             400:
                 description: "Bad Request"
             401:

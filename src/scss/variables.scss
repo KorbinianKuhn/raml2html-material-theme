@@ -1,0 +1,13 @@
+@import 'theming';
+
+$primary: mat-color($app-primary);
+$accent: mat-color($app-accent);
+$warn: mat-color($app-warn);
+
+$red: mat-color(mat-palette($mat-red));
+$light-blue: mat-color(mat-palette($mat-light-blue));
+$green: mat-color(mat-palette($mat-green));
+$orange: mat-color(mat-palette($mat-orange));
+$purple: mat-color(mat-palette($mat-purple));
+$grey: mat-color(mat-palette($mat-grey));
+$blue: mat-color(mat-palette($mat-blue));

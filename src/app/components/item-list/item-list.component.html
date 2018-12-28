@@ -1,0 +1,6 @@
+<app-item *ngFor="let item of requiredItems" [item]="item"></app-item>
+<div class="flex flex-col">
+  <div *ngIf="optionalItems.length > 0" class="optional-items">Optional:</div>
+  <hr>
+</div>
+<app-item *ngFor="let item of optionalItems" [item]="item"></app-item>

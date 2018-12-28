@@ -1,0 +1,4 @@
+<div *ngIf="show">
+  <app-parameters-default *ngIf="type !== 'body'" [items]="items" [title]="title"></app-parameters-default>
+  <app-parameters-body *ngIf="type === 'body'" [body]="items" [title]="title"></app-parameters-body>
+</div>

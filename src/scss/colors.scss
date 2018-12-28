@@ -1,0 +1,63 @@
+@import 'theming';
+
+$light-grey-palette: mat-palette($mat-grey);
+$teal-palette: mat-palette($mat-teal);
+$blue-palette: mat-palette($mat-blue);
+$light-blue-palette: mat-palette($mat-light-blue);
+$orange-palette: mat-palette($mat-orange);
+$lime-palette: mat-palette($mat-lime);
+$purple-palette: mat-palette($mat-purple);
+$green-palette: mat-palette($mat-green);
+
+.bg-light-grey {
+  background-color: #f7f7f7;
+}
+
+.bg-teal {
+  background-color: mat-color($teal-palette);
+}
+.text-teal {
+  color: mat-color($teal-palette);
+}
+
+.bg-blue {
+  background-color: mat-color($blue-palette);
+}
+.text-blue {
+  color: mat-color($blue-palette);
+}
+
+.bg-orange {
+  background-color: mat-color($orange-palette);
+}
+.text-orange {
+  color: mat-color($orange-palette);
+}
+
+.bg-lime {
+  background-color: mat-color($lime-palette);
+}
+.text-lime {
+  color: mat-color($lime-palette);
+}
+
+.bg-light-blue {
+  background-color: mat-color($light-blue-palette);
+}
+.text-light-blue {
+  color: mat-color($light-blue-palette);
+}
+
+.bg-purple {
+  background-color: mat-color($purple-palette);
+}
+.text-purple {
+  color: mat-color($purple-palette);
+}
+
+.bg-green {
+  background-color: mat-color($green-palette);
+}
+.text-green {
+  color: mat-color($green-palette);
+}

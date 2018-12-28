@@ -1,2 +1,11 @@
+.vscode
 example
-images
+node_modules
+scripts
+src
+templates
+.gitignore
+.prettierrc
+angular.json
+tsconfig.json
+tslint.json

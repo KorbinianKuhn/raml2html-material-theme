@@ -1,0 +1,34 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        General
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div>
+      <table>
+        <tr>
+          <td class="bold">Title</td>
+          <td>{{ title }}</td>
+        </tr>
+        <tr>
+          <td class="bold">Version</td>
+          <td>{{ version }}</td>
+        </tr>
+        <tr>
+          <td class="bold">URI</td>
+          <td>{{ baseUri }}</td>
+        </tr>
+      </table>
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel *ngFor="let chapter of chapters">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ chapter.title }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div [innerHTML]="chapter.content"></div>
+  </mat-expansion-panel>
+</mat-accordion>

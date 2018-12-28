@@ -1,0 +1,31 @@
+<div class="flex" style="margin-bottom:10px;">
+  <div style="width:5px;" [ngClass]="'bg-'+color"></div>
+  <div class="flex-col flex-1">
+    <div class="flex flex-row flex-1 item-content align-center bg-light-grey">
+      <div class="flex flex-col flex-1">
+        <div class="flex flex-1 align-center">
+          <span class="bold" [class.italic]="!item.required">{{ item.key }}</span>
+          <mat-icon *ngIf="item.required" class="small-icon text-blue" matTooltip="Required" style="margin-left:5px">info</mat-icon>
+          <div class="chip" [ngClass]="'bg-'+color"  style="margin-left:5px">{{ item.type }}</div>
+          <div class="item-condition" *ngFor="let condition of conditions">
+            <span class="item-condition-key">{{ condition.key }}</span>
+            <span>{{ condition.value}}</span>
+          </div>
+        </div>
+        <div>{{ item.description }}</div>
+      </div>
+      <div style="flex flex-col">
+        <div class="flex" *ngFor="let example of item.examples">
+          <span *ngIf="item.examples.length > 1">Example: {{ example.name }}</span>
+          <div class="flex">
+            <pre><code [highlight]="example.value"></code></pre>
+            <app-copy-to-clipboard [content]="example.value"></app-copy-to-clipboard>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="item.properties" class="item-properties">
+      <app-item *ngFor="let property of item.properties" [item]="property"></app-item>
+    </div>
+  </div>
+</div>

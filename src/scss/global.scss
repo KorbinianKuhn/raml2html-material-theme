@@ -1,0 +1,39 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.small-icon {
+  font-size: 16px;
+  height: 16px !important;
+  width: 16px !important;
+}
+
+.header-less-tabs .mat-tab-group .mat-tab-header {
+  display: none;
+}
+
+.mat-tab-header app-letter-icon {
+  margin-right: 5px;
+}
+
+.flip-icon {
+  transform: scale(-1);
+}
+
+.mat-expansion-panel-header-description,
+.mat-expansion-panel-header-title {
+  flex-grow: 0 !important;
+}
+
+.dialog-with-grey-background .mat-dialog-container {
+  background: #fafafa;
+}
