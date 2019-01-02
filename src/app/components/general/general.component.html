@@ -6,20 +6,54 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div>
-      <table>
-        <tr>
+      <table class="table-general">
+        <tr *ngIf="title">
           <td class="bold">Title</td>
           <td>{{ title }}</td>
         </tr>
-        <tr>
+        <tr *ngIf="version">
           <td class="bold">Version</td>
           <td>{{ version }}</td>
         </tr>
+        <tr *ngIf="protocols">
+          <td class="bold">Protocols</td>
+          <td>{{ protocols.join(', ') }}</td>
+        </tr>
+        <tr *ngIf="mediaType">
+          <td class="bold">Media Types</td>
+          <td>{{ mediaType.join(', ') }}</td>
+        </tr>
         <tr>
-          <td class="bold">URI</td>
-          <td>{{ baseUri }}</td>
+          <td class="bold">Base URI</td>
+          <td>
+            <div>
+              <span [innerHTML]="styledBaseUri"></span>
+              <div class="flex align-center">
+                <pre><code [highlight]="exampleBaseUri"></code></pre>
+                <app-copy-to-clipboard [content]="exampleBaseUri"></app-copy-to-clipboard>
+              </div>
+              <app-item-list [items]="baseUriParameters"></app-item-list>
+            </div>
+          </td>
         </tr>
       </table>
+
+      <ng-container *ngIf="securitySchemes.length > 0">
+        <h4>Security Schemes</h4>
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let scheme of securitySchemes;let i =index">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ scheme.type }}
+              </mat-panel-title>
+              <mat-panel-description>
+                {{ scheme.description }}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <app-route-security-scheme [scheme]="scheme"></app-route-security-scheme>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </ng-container>
     </div>
   </mat-expansion-panel>
 

@@ -6,8 +6,10 @@ it('test raml build', async () => {
   const templatePath = path.join(__dirname, '..', 'index.js');
   const ramlPath = path.join(__dirname, '..', 'example/api.raml');
   const config = raml2html.getConfigForTheme(templatePath);
-  const html = await raml2html.render(ramlPath, config);
 
-  const expectedPath = path.join(__dirname, 'expected.html');
-  await fs.writeFile(expectedPath, html);
+  expect(async () => {
+    const html = await raml2html.render(ramlPath, config);
+    const expectedPath = path.join(__dirname, '..', 'example', 'example.html');
+    await fs.writeFile(expectedPath, html);
+  }).not.toThrow();
 });

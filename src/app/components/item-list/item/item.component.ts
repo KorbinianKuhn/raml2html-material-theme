@@ -20,7 +20,7 @@ export class ItemComponent implements OnInit {
 
   ngOnInit() {
     this.type = this.item.type.includes('array') ? 'array' : this.item.type;
-    this.color = ITEM_TYPE_COLORS[this.type] || 'grey';
+    this.color = ITEM_TYPE_COLORS[this.type] || ITEM_TYPE_COLORS.default;
 
     this.conditions = [];
     for (const condition of POSSIBLE_ITEM_CONDITIONS) {

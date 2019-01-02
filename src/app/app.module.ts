@@ -2,12 +2,11 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   MatButtonModule,
-  MatCheckboxModule,
+  MatCardModule,
   MatDialogModule,
   MatExpansionModule,
   MatIconModule,
   MatInputModule,
-  MatRadioModule,
   MatSelectModule,
   MatSnackBarModule,
   MatTabsModule,
@@ -83,10 +82,9 @@ export function hljsLanguages() {
     MatIconModule,
     MatTooltipModule,
     MatSnackBarModule,
-    MatCheckboxModule,
     MatInputModule,
     MatSelectModule,
-    MatRadioModule
+    MatCardModule
   ],
   providers: [RamlService, SearchService],
   bootstrap: [AppComponent],

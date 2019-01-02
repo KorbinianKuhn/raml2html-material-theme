@@ -5,10 +5,9 @@ baseUri: https://{environment}.example.com/api/example/{version}
 baseUriParameters:
   environment:
     type: string
-    enum: [ "stg", "dev", "test", "prod" ]
-mediaType: application/json
-protocols: [  HTTPS ]
-mediaType: [ application/json ]
+    enum: [ "dev", "test", "prod" ]
+protocols: [  HTTPS, HTTP/2 ]
+mediaType: [ application/json, application/xml ]
 documentation:
   - title: Getting Started
     content: |
@@ -62,7 +61,9 @@ securedBy: oauth_2_0
 securedBy: oauth_1_0
 
 /info:
-    options: Options request.
+    options: 
+        description: Options request.
+        securedBy: null
     head: Head request.
 
 /users:
@@ -85,6 +86,12 @@ securedBy: oauth_1_0
                         type: string
                         required: true
                         pattern: /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+                        examples:
+                            first: jane.doe@example.com
+                            second: john.doe@example.com
+                            third:
+                                description: Another Example
+                                value: janeandjohn@example.com
                     password:
                         description: Password of the user.
                         type: string
@@ -125,6 +132,18 @@ securedBy: oauth_1_0
                                 description: Last name.
                                 example: "Doe"
                                 required: false
+                    size:
+                        description: Size of the user.
+                        type: number
+                        required: false
+                        minimum: 50.0
+                        maximum: 100.0
+                    metadata: any
+                    birthday: date
+                    union: date | integer
+                    nil: nil
+                    file: file
+                    boolean: boolean
                 examples: 
                     full: {"email": "jane.doe@example.com", "password": "secret", "age": 99, "status": "active", "hobbies": [ "cooking", "programming"], "name": {"firstname": "Jane", "lastname": "Doe"}}
                     minimum: {"email": "jane.doe@example.com", "password": "secret", "age": null}
@@ -140,8 +159,8 @@ securedBy: oauth_1_0
                 body:
                     application/json: 
                         example: {"success": "true"}
-                    application/xml: XML
-                        example: <xml><success>True</success></xml>
+                    application/xml:
+                        example: <?xml version="1.0" ?><xml><success>True</success></xml>
             400:
                 description: "Bad Request"
             401:
@@ -157,3 +176,5 @@ securedBy: oauth_1_0
             description: Delete user by id.
         patch: Change specific value by user id.
         put: Change user by id.
+        /messages:
+            get: Get all messages from user.

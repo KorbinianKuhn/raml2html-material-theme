@@ -1,6 +1,5 @@
 const fs = require('fs-extra');
 const path = require('path');
-const browserify = require('browserify');
 
 const ROOT = path.join(__dirname, '..');
 

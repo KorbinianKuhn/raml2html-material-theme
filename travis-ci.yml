@@ -1,0 +1,18 @@
+language: node_js
+
+node_js:
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+
+before_install:
+  - '[[ $(node -v) =~ ^v9.*$ ]] || npm install -g npm@latest'
+
+before_script:
+  - npm install
+
+script:
+  - npm run build
+  - npm run test

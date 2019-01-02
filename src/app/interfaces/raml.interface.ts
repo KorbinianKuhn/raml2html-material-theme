@@ -78,6 +78,7 @@ export interface IRamlResource {
   }>;
   uniqueId: string;
   resources?: IRamlResource[];
+  themeFirstUriSegment: string;
 }
 
 export interface IRamlMethod {
@@ -90,10 +91,10 @@ export interface IRamlMethod {
   headers?: IRamlItem[];
   allUriParameters: IRamlItem[];
   uriParameters: IRamlItem[];
-  queryParameters: IRamlItem;
+  queryParameters: IRamlItem[];
   body: IRamlItem[];
   responses: IRamlResponse[];
-  searchString: string;
+  themeSearchString: string;
 }
 
 export interface IRamlResponse {

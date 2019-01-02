@@ -13,6 +13,13 @@ $green-palette: mat-palette($mat-green);
   background-color: #f7f7f7;
 }
 
+.bg-grey {
+  background-color: mat-color($light-grey-palette);
+}
+.text-grey {
+  color: mat-color($light-grey-palette);
+}
+
 .bg-teal {
   background-color: mat-color($teal-palette);
 }

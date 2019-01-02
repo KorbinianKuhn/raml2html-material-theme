@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { IRamlItem } from 'src/app/interfaces/raml.interface';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import {
+  IRamlItem,
+  IRamlSecurityScheme
+} from 'src/app/interfaces/raml.interface';
 import { RamlService } from './../../services/raml.service';
 
 @Component({
@@ -16,9 +19,10 @@ export class GeneralComponent implements OnInit {
   public baseUriParameters: IRamlItem[];
   public protocols: string[];
   public mediaType: string[];
-  public securedBy: Array<{
-    schemeName: string;
-  }>;
+  public securitySchemes: IRamlSecurityScheme[];
+
+  public styledBaseUri: SafeHtml;
+  public exampleBaseUri: string;
 
   constructor(
     private ramlService: RamlService,
@@ -37,7 +41,27 @@ export class GeneralComponent implements OnInit {
     this.baseUriParameters = data.baseUriParameters;
     this.protocols = data.protocols;
     this.mediaType = data.mediaType;
-    this.securedBy = data.securedBy;
+
+    let styledBaseUri = this.baseUri;
+    let exampleBaseUri = this.baseUri;
+    this.baseUri.match(/{(.*?)}/g).map(o => {
+      styledBaseUri = styledBaseUri.replace(
+        o,
+        `<span class="bold">${o}</span>`
+      );
+      const name = o.replace(/[{}]/g, '');
+      const param = this.baseUriParameters.find(i => i.name === name);
+      if (param && param.examples) {
+        exampleBaseUri = exampleBaseUri.replace(o, param.examples[0].value);
+      }
+    });
+    this.styledBaseUri = this.domSanitizer.bypassSecurityTrustHtml(
+      styledBaseUri
+    );
+    this.exampleBaseUri = exampleBaseUri;
+    this.securitySchemes = data.securedBy.map(o =>
+      this.ramlService.getSecuritySchemeByName(o.schemeName)
+    );
   }
 
   ngOnInit() {}

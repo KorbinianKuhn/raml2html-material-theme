@@ -1,13 +1,19 @@
 # raml2html material theme
 
+[![Travis](https://img.shields.io/travis/KorbinianKuhn/raml2html-material-theme.svg?style=flat-square)](https://travis-ci.org/KorbinianKuhn/raml2html-material-theme/builds)
+[![Known Vulnerabilities](https://snyk.io/test/github/KorbinianKuhn/raml2html-material-theme/badge.svg?style=flat-square)](https://snyk.io/test/github/KorbinianKuhn/raml2html-material-theme)
+[![Dependencies](https://img.shields.io/david/KorbinianKuhn/raml2html-material-theme.svg?style=flat-square)](https://david-dm.org/KorbinianKuhn/raml2html-material-theme)
+[![Dev Dependencies](https://img.shields.io/david/dev/KorbinianKuhn/raml2html-material-theme.svg?style=flat-square)](https://david-dm.org/KorbinianKuhn/raml2html-material-theme)
 [![npm](https://img.shields.io/npm/dt/raml2html-material-theme.svg?style=flat-square)](https://www.npmjs.com/package/raml2html-material-theme)
 [![npm-version](https://img.shields.io/npm/v/raml2html-material-theme.svg?style=flat-square)](https://www.npmjs.com/package/raml2html-material-theme)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 ![license](https://img.shields.io/github/license/KorbinianKuhn/raml2html-material-theme.svg?style=flat-square)
 
 - Compact overview
 - Interactive search
 - JSON Syntax Highlighting
 - Copy examples to clipboard functionality
+- Automatic example generation
 
 ## Installation
 
@@ -39,6 +45,12 @@ raml2html \
 -o 'path/to/output/file.html' \
 -i 'path/to/raml/file.raml'
 ```
+
+## Example
+
+[example.html](example/example.html)
+
+![Screenshot](example/screenshot.png)
 
 ## Contributing
 

@@ -6,13 +6,18 @@ import { IRamlResource } from '../../interfaces/raml.interface';
 import { RamlService } from '../../services/raml.service';
 import { RouteDetailDialogComponent } from './route-detail/route-detail-dialog/route-detail-dialog.component';
 
+interface IGroupedResources {
+  title: string;
+  resources: IRamlResource[];
+}
+
 @Component({
   selector: 'app-routes',
   templateUrl: './routes.component.html',
   styleUrls: ['./routes.component.scss']
 })
 export class RoutesComponent implements OnInit, OnDestroy {
-  public filteredResources: IRamlResource[];
+  public groupedResources: IGroupedResources[];
 
   private resources: IRamlResource[];
   private subscription: Subscription;
@@ -25,12 +30,12 @@ export class RoutesComponent implements OnInit, OnDestroy {
     private searchService: SearchService
   ) {
     this.resources = this.ramlService.getResources();
-    this.filteredResources = this.filterResources('');
+    this.groupedResources = this.updateGroupedResources('');
   }
 
   ngOnInit() {
     this.subscription = this.searchService.changed.subscribe(value => {
-      this.filteredResources = this.filterResources(value);
+      this.groupedResources = this.updateGroupedResources(value);
     });
   }
 
@@ -47,7 +52,7 @@ export class RoutesComponent implements OnInit, OnDestroy {
     const filteredResources = [];
     for (const resource of this.resources) {
       const methods = resource.methods.filter(method =>
-        method.searchString.match(regex)
+        method.themeSearchString.match(regex)
       );
       if (methods.length > 0) {
         const filteredResource = JSON.parse(JSON.stringify(resource));
@@ -58,6 +63,26 @@ export class RoutesComponent implements OnInit, OnDestroy {
     return filteredResources;
   }
 
+  private updateGroupedResources(searchValue: string): IGroupedResources[] {
+    const resources = this.filterResources(searchValue);
+    const groupedResources: IGroupedResources[] = [];
+    let lastGroup: IGroupedResources;
+    for (let i = 0; i < resources.length; i++) {
+      const resource = resources[i];
+      if (
+        i === 0 ||
+        resources[i].themeFirstUriSegment !==
+          resources[i - 1].themeFirstUriSegment
+      ) {
+        lastGroup = { title: resource.themeFirstUriSegment, resources: [] };
+        groupedResources.push(lastGroup);
+      }
+
+      lastGroup.resources.push(resource);
+    }
+    return groupedResources;
+  }
+
   openDialog(resourceId: string, method: string): void {
     const dialogRef = this.dialog.open(RouteDetailDialogComponent, {
       width: '80vw',
@@ -65,8 +90,7 @@ export class RoutesComponent implements OnInit, OnDestroy {
       data: {
         resourceId,
         method
-      },
-      panelClass: 'dialog-with-grey-background'
+      }
     });
   }
 }

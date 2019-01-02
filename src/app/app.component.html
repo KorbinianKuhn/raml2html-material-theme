@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
   <span>{{ title }}</span>
   <span class="flex-1"></span>
-  <input class="search-field" placeholder="Search" (keyup)="onSearchInputChange(input.value)" #input>
+  <input *ngIf="view === 'routes'" class="search-field" placeholder="Search" (keyup)="onSearchInputChange(input.value)" #input>
   <button mat-button [class.active]="view === 'general'" (click)="view = 'general'">General</button>
   <button mat-button [class.active]="view === 'routes'" (click)="view = 'routes'">Routes</button>
 </mat-toolbar>

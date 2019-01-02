@@ -1,18 +1,26 @@
 export const ITEM_TYPE_COLORS = {
   any: 'grey',
+  default: 'grey',
   boolean: 'light-blue',
   number: 'green',
   date: 'purple',
   string: 'blue',
   integer: 'teal',
   array: 'orange',
-  object: 'lime'
+  object: 'lime',
+  union: 'grey',
+  nil: 'grey',
+  file: 'grey'
 };
 
 export const POSSIBLE_ITEM_CONDITIONS = [
   {
     key: 'default',
     displayName: 'default'
+  },
+  {
+    key: 'enum',
+    displayName: 'one of'
   },
   {
     key: 'minimum',
