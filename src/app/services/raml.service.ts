@@ -42,12 +42,19 @@ export class RamlService {
         });
         if (m.body) {
           m.body.map(b => {
-            b.properties.map(o => this.generateExampleForItem(o));
+            if (b.properties) {
+              b.properties.map(o => this.generateExampleForItem(o));
+            }
           });
         }
       });
     });
+    this.data.baseUriParameters = this.data.baseUriParameters || [];
     this.data.baseUriParameters.map(o => this.generateExampleForItem(o));
+    this.data.securedBy = this.data.securedBy || [];
+    if (this.data.mediaType && !Array.isArray(this.data.mediaType)) {
+      this.data.mediaType = [this.data.mediaType];
+    }
   }
 
   private generateExampleForItem(item: IRamlItem) {
@@ -90,6 +97,9 @@ export class RamlService {
     }
     const flattenedResources: IRamlResource[] = [];
     for (const resource of resources) {
+      if (!resource.methods) {
+        resource.methods = [];
+      }
       flattenedResources.push(resource);
       flattenedResources.push(...this.flattenResources(resource.resources));
       delete resource.resources;

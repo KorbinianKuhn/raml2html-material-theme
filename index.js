@@ -5,9 +5,13 @@ const fs = require('fs-extra');
 const processRamlObj = async (ramlObj, config) => {
   const basePath = path.join(__dirname, 'dist', 'root.template');
 
-  ramlObj.documentation.map(o => {
-    o.content = marked(o.content);
-  });
+  if (!ramlObj.documentation) {
+    ramlObj.documentation = [];
+  } else {
+    ramlObj.documentation.map(o => {
+      o.content = marked(o.content);
+    });
+  }
 
   const content = await fs.readFile(basePath, 'utf-8');
 

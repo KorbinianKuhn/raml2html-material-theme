@@ -18,7 +18,7 @@ export class GeneralComponent implements OnInit {
   public baseUri: string;
   public baseUriParameters: IRamlItem[];
   public protocols: string[];
-  public mediaType: string[];
+  public mediaType: string | string[];
   public securitySchemes: IRamlSecurityScheme[];
 
   public styledBaseUri: SafeHtml;
@@ -44,17 +44,19 @@ export class GeneralComponent implements OnInit {
 
     let styledBaseUri = this.baseUri;
     let exampleBaseUri = this.baseUri;
-    this.baseUri.match(/{(.*?)}/g).map(o => {
-      styledBaseUri = styledBaseUri.replace(
-        o,
-        `<span class="bold">${o}</span>`
-      );
-      const name = o.replace(/[{}]/g, '');
-      const param = this.baseUriParameters.find(i => i.name === name);
-      if (param && param.examples) {
-        exampleBaseUri = exampleBaseUri.replace(o, param.examples[0].value);
-      }
-    });
+    if (this.baseUriParameters.length > 0) {
+      this.baseUri.match(/{(.*?)}/g).map(o => {
+        styledBaseUri = styledBaseUri.replace(
+          o,
+          `<span class="bold">${o}</span>`
+        );
+        const name = o.replace(/[{}]/g, '');
+        const param = this.baseUriParameters.find(i => i.name === name);
+        if (param && param.examples) {
+          exampleBaseUri = exampleBaseUri.replace(o, param.examples[0].value);
+        }
+      });
+    }
     this.styledBaseUri = this.domSanitizer.bypassSecurityTrustHtml(
       styledBaseUri
     );

@@ -10,9 +10,13 @@ const example = `${root}/example/api.raml`;
 const build = async () => {
   const ramlObj = await raml2html.render(example);
 
-  ramlObj.documentation.map(o => {
-    o.content = marked(o.content);
-  });
+  if (!ramlObj.documentation) {
+    ramlObj.documentation = [];
+  } else {
+    ramlObj.documentation.map(o => {
+      o.content = marked(o.content);
+    });
+  }
 
   await fs.writeFile(
     `${root}/example/api.ts`,

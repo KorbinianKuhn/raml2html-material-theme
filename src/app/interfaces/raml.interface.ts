@@ -7,7 +7,7 @@ export interface IRaml {
   baseUri: string;
   baseUriParameters: IRamlItem[];
   protocols: string[];
-  mediaType: string[];
+  mediaType: string | string[];
   securedBy: Array<{
     schemeName: string;
   }>;
