@@ -64,12 +64,34 @@ export class RamlService {
         example = item.enum[0];
       } else if (item.default !== undefined) {
         example = item.default;
-      } else if (['number', 'integer'].includes(item.type)) {
+      } else if (item.enum) {
+        example = item.enum[0];
+      } else {
         try {
-          const min = item.minimum !== undefined ? item.minimum : 0;
-          const max = item.maximum !== undefined ? item.maximum : 0;
-          example =
-            Math.floor(Math.random() * Math.max(min, max)) + Math.min(min, max);
+          switch (item.type) {
+            case 'number':
+            case 'integer':
+              const min = item.minimum !== undefined ? item.minimum : 0;
+              const max = item.maximum !== undefined ? item.maximum : 0;
+              example =
+                Math.floor(Math.random() * Math.max(min, max)) +
+                Math.min(min, max);
+              break;
+            case 'boolean':
+              example = true;
+              break;
+            case 'array':
+              example = [];
+              break;
+            case 'object':
+              example = {};
+              break;
+            case 'date':
+              example = new Date();
+              break;
+            default:
+              example = item.type.toLowerCase();
+          }
         } catch (err) {
           console.error(err);
         }
