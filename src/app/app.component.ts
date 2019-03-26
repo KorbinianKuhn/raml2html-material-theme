@@ -12,7 +12,7 @@ import { SearchService } from './services/search.service';
 })
 export class AppComponent {
   public title: string;
-  public view: string = 'general';
+  public view: string = 'routes';
 
   constructor(
     private ramlService: RamlService,
