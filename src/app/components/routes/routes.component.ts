@@ -5,11 +5,14 @@ import { SearchService } from 'src/app/services/search.service';
 import { IRamlResource } from '../../interfaces/raml.interface';
 import { RamlService } from '../../services/raml.service';
 import { RouteDetailDialogComponent } from './route-detail/route-detail-dialog/route-detail-dialog.component';
+import { StorageService } from 'src/app/services/storage.service';
 
 interface IGroupedResources {
   title: string;
   resources: IRamlResource[];
 }
+
+type View = 'compact' | 'detail';
 
 @Component({
   selector: 'app-routes',
@@ -22,15 +25,17 @@ export class RoutesComponent implements OnInit, OnDestroy {
   private resources: IRamlResource[];
   private subscription: Subscription;
 
-  public view: 'compact' | 'detail' = 'compact';
+  public view: View;
 
   constructor(
     private dialog: MatDialog,
     private ramlService: RamlService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private storageService: StorageService
   ) {
     this.resources = this.ramlService.getResources();
     this.groupedResources = this.updateGroupedResources('');
+    this.view = this.storageService.getFromLocalStorage('view', 'compact');
   }
 
   ngOnInit() {
@@ -92,5 +97,10 @@ export class RoutesComponent implements OnInit, OnDestroy {
         method
       }
     });
+  }
+
+  onViewChange(view: View) {
+    this.view = view;
+    this.storageService.storeInLocalStorage('view', view);
   }
 }

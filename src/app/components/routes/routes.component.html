@@ -1,15 +1,25 @@
-<div class="flex align-center" style="margin-bottom:20px;border-bottom: 1px solid #ccc">
+<div
+  class="flex align-center"
+  style="margin-bottom:20px;border-bottom: 1px solid #ccc"
+>
   <div class="flex flex-1 bold">Routes</div>
   <div class="flex">
-    <button mat-icon-button [color]="view === 'compact' ? 'accent' : 'primary'" (click)="view = 'compact'">
+    <button
+      mat-icon-button
+      [color]="view === 'compact' ? 'accent' : 'primary'"
+      (click)="onViewChange('compact')"
+    >
       <mat-icon>view_headline</mat-icon>
     </button>
-    <button mat-icon-button [color]="view === 'detail' ? 'accent' : 'primary'" (click)="view = 'detail'">
+    <button
+      mat-icon-button
+      [color]="view === 'detail' ? 'accent' : 'primary'"
+      (click)="onViewChange('detail')"
+    >
       <mat-icon>view_list</mat-icon>
     </button>
   </div>
 </div>
-
 
 <mat-card *ngFor="let group of groupedResources" style="margin-bottom:20px">
   <mat-card-content>
@@ -18,17 +28,24 @@
         <ng-container *ngIf="view === 'compact'">
           <div class="flex flex-1 align-center resource-list-item">
             <div class="flex flex-1 align-center">
-              <span *ngIf="resource.parentUrl" style="margin-right:5px;color:#999">{{ resource.parentUrl }}</span>
+              <span
+                *ngIf="resource.parentUrl"
+                style="margin-right:5px;color:#999"
+                >{{ resource.parentUrl }}</span
+              >
               <span>{{ resource.relativeUri }}</span>
             </div>
             <div *ngFor="let method of resource.methods">
-              <button 
-                mat-flat-button 
-                class="button-method" 
-                [ngClass]="'button-'+method.method" 
-                style="margin:3px" 
+              <button
+                mat-flat-button
+                class="button-method"
+                [ngClass]="'button-' + method.method"
+                style="margin:3px"
                 (click)="openDialog(resource.uniqueId, method.method)"
-              ><mat-icon *ngIf="method.securedBy">lock</mat-icon>{{ method.method }}</button>
+              >
+                <mat-icon *ngIf="method.securedBy">lock</mat-icon
+                >{{ method.method }}
+              </button>
             </div>
           </div>
         </ng-container>
@@ -38,19 +55,26 @@
             <div class="flex flex-1 align-center resource-list-item">
               <div class="flex flex-col flex-1 ">
                 <div class="flex align-center">
-                  <span *ngIf="resource.parentUrl" style="margin-right:5px;color:#999">{{ resource.parentUrl }}</span>
+                  <span
+                    *ngIf="resource.parentUrl"
+                    style="margin-right:5px;color:#999"
+                    >{{ resource.parentUrl }}</span
+                  >
                   <span>{{ resource.relativeUri }}</span>
                 </div>
                 <span>{{ method.description }} </span>
               </div>
               <div>
-                <button 
-                  mat-flat-button 
-                  class="button-method" 
-                  [ngClass]="'button-'+method.method" 
-                  style="margin:3px" 
+                <button
+                  mat-flat-button
+                  class="button-method"
+                  [ngClass]="'button-' + method.method"
+                  style="margin:3px"
                   (click)="openDialog(resource.uniqueId, method.method)"
-                ><mat-icon *ngIf="method.securedBy">lock</mat-icon>{{ method.method }}</button>
+                >
+                  <mat-icon *ngIf="method.securedBy">lock</mat-icon
+                  >{{ method.method }}
+                </button>
               </div>
             </div>
           </ng-container>

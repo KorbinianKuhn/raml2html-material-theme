@@ -1,12 +1,30 @@
 <mat-toolbar color="primary">
   <span>{{ title }}</span>
   <span class="flex-1"></span>
-  <input *ngIf="view === 'routes'" class="search-field" placeholder="Search" (keyup)="onSearchInputChange(input.value)" #input>
-  <button mat-button [class.active]="view === 'general'" (click)="view = 'general'">General</button>
-  <button mat-button [class.active]="view === 'routes'" (click)="view = 'routes'">Routes</button>
+  <input
+    *ngIf="route === 'routes'"
+    class="search-field"
+    placeholder="Search"
+    (keyup)="onSearchInputChange(input.value)"
+    #input
+  />
+  <button
+    mat-button
+    [class.active]="route === 'general'"
+    (click)="onRouteChange('general')"
+  >
+    General
+  </button>
+  <button
+    mat-button
+    [class.active]="route === 'routes'"
+    (click)="onRouteChange('routes')"
+  >
+    Routes
+  </button>
 </mat-toolbar>
 <div class="content-wrapper">
   <!--<router-outlet></router-outlet>-->
-  <app-general *ngIf="view === 'general'"></app-general>
-  <app-routes *ngIf="view === 'routes'"></app-routes>
+  <app-general *ngIf="route === 'general'"></app-general>
+  <app-routes *ngIf="route === 'routes'"></app-routes>
 </div>

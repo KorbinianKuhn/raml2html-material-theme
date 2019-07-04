@@ -7,7 +7,7 @@ import { AlertService } from 'src/app/services/alert.service';
   styleUrls: ['./copy-to-clipboard.component.scss']
 })
 export class CopyToClipboardComponent implements OnInit {
-  @ViewChild('textarea')
+  @ViewChild('textarea', { static: false })
   textarea: ElementRef;
 
   @Input()
