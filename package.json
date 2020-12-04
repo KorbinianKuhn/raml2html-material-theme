@@ -51,7 +51,7 @@
     "@types/node": "~12.0.12",
     "codelyzer": "~5.1.0",
     "core-js": "~3.1.4",
-    "highlight.js": "^9.15.8",
+    "highlight.js": "^10.4.1",
     "jest": "^24.8.0",
     "ngx-highlightjs": "^3.0.3",
     "raml2html": "^7.4.0",
